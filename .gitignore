@@ -1,0 +1,32 @@
+# WordPress core and content that is not part of this project
+/wp-admin/
+/wp-includes/
+/wp-config.php
+/wp-content/uploads/
+/wp-content/upgrade/
+/wp-content/cache/
+/wp-content/plugins/*
+!/wp-content/plugins/memorial-core/
+/wp-content/themes/*
+!/wp-content/themes/memorial/
+/wp-content/languages/
+
+# Secrets and local configuration
+.env
+.env.*
+*.pem
+*.key
+config.local.php
+wp-config-local.php
+
+# Tooling and OS
+node_modules/
+/vendor/
+.DS_Store
+Thumbs.db
+*.log
+*.zip
+*.sql
+.idea/
+.vscode/
+.claude/
