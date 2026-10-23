@@ -365,7 +365,7 @@ function memorial_form_notice($kind)
 {
     $ok = isset($_GET['memorial_sent']) && sanitize_key(wp_unslash($_GET['memorial_sent'])) === $kind;
     $err = isset($_GET['memorial_err']) ? sanitize_text_field(wp_unslash(urldecode($_GET['memorial_err']))) : '';
-    $msgs = ['story' => 'תודה רבה. הסיפור התקבל, והמשפחה תקרא אותו ותפרסם אותו בקרוב.', 'visit' => 'תודה! התמונה התקבלה והמשפחה תשמח לראות אותה.', 'feedback' => 'תודה על המשוב!'];
+    $msgs = ['story' => 'תודה רבה. הסיפור התקבל, והמשפחה תקרא אותו ותפרסם אותו בקרוב.', 'visit' => 'תודה! התמונה התקבלה והמשפחה תשמח לראות אותה.'];
     if ($ok) {
         return '<div class="form-msg form-msg--ok" id="sent" role="status">' . memorial_icon('check') . esc_html($msgs[$kind] ?? 'תודה!') . '</div>';
     }

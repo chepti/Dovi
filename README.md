@@ -6,193 +6,238 @@
 
 ## עברית
 
-**Memorial** הוא קוד פתוח (GPL-2.0-or-later) לבניית אתר זיכרון משפחתי בעברית, מימין לשמאל, על וורדפרס, בלי בונה עמודים. הוא נולד מאתר הזיכרון של משפחה אחת, ונוקה והוכלל כדי שגם משפחות אחרות יוכלו להקים אתר כזה בלי מתכנת.
+**Memorial** הוא קוד פתוח וחינמי (GPL-2.0-or-later) להקמת אתר זיכרון משפחתי בעברית, מימין לשמאל, על וורדפרס. הוא נולד מאתר הזיכרון של משפחה אחת, ונוקה והוכלל כדי שגם משפחות אחרות יוכלו להקים אתר כזה, בלי לדעת לתכנת.
 
-הפרויקט כולל שני חלקים שעובדים יחד:
+> **חשוב לדעת מראש:** זה עובד על **וורדפרס בלבד**. אי אפשר להעלות את הקבצים לאתר סטטי, ל-Wix, לסקווארספייס או לשירותי "בנה אתר" אחרים. הסבר מלא על אחסון בהמשך.
 
-| חלק | תיקייה | מה הוא עושה |
+### מה מקבלים
+
+- **סיפורים**: חברים ומשפחה כותבים סיפור קצר (אפשר עם תמונות) דרך טופס באתר. הסיפור **לא מתפרסם** עד שמישהו מהמשפחה קורא ולוחץ "פרסום".
+- **פרקי חיים וערכים**: קטגוריות שאתם מגדירים (ילדות, שירות, משפחה... חיבור, נתינה...), כל אחת עם צבע ואייקון.
+- **מקומות הנצחה**: ספסלים, נטיעות, פינות זיכרון, על מפה, עם תמונות ודרכי הגעה. מבקרים יכולים לשלוח תמונה מהביקור.
+- **יצירות**: ציורים, מתקנים, כתבים של האדם.
+- **אלבום תמונות**, **הספדים והנצחה**, **ציר זמן**.
+- **באנר אזכרה** שמופיע לבד שלושה שבועות לפני יום הזיכרון העברי.
+- **נגישות** (סרגל נגישות, ניווט במקלדת), **חיפוש בגוגל** (SEO), מסך **ניהול תמונות** נוח.
+
+---
+
+### חלק א: לפני שמתחילים, מה צריך?
+
+כדי שאתר יהיה באינטרנט צריך שלושה דברים. אל תיבהלו, זה פשוט:
+
+1. **אחסון (Hosting)**: מחשב של חברה שמחזיק את האתר פתוח 24/7.
+2. **וורדפרס**: תוכנת בניית האתר. כמעט כל חברת אחסון מתקינה אותה בלחיצה אחת.
+3. **דומיין** (כתובת, למשל `shem-hamenuach.org.il`): לא חובה, אבל מומלץ מאוד. בלי דומיין הכתובת תהיה ארוכה ומוזרה.
+
+#### האם אפשר בחינם? תשובה ישרה
+
+האתר הזה בנוי על **וורדפרס**, שדורש שרת עם PHP ובסיס נתונים (MySQL). לכן:
+
+| מה | מתאים? | למה |
 |---|---|---|
-| תוסף **Memorial Core** | `wp-content/plugins/memorial-core` | סוגי תוכן (סיפורים, מקומות הנצחה, יצירות), פרקי חיים וערכים שמגדירים מהניהול, טפסים עם אישור לפני פרסום, ניהול תמונות, SEO ו-JSON-LD, `llms.txt`, מפת אתר, ציר זמן |
-| ערכת נושא **Memorial** | `wp-content/themes/memorial` | העיצוב: דף בית, עמודי תוכן, מפה (Leaflet), גלריות עם הגדלה, סרגל נגישות, פונטים מקומיים, ללא תלות בשירותים חיצוניים (פרט לאריחי המפה) |
+| Supabase, Firebase, Netlify, Vercel, GitHub Pages, Cloudflare Pages | **לא** | אלה שירותים לאתרים סטטיים או לאפליקציות. אין בהם PHP ו-MySQL, ווורדפרס לא ירוץ שם |
+| WordPress.com בתוכנית החינמית | **לא** | לא מאפשרת להעלות תוספים וערכות נושא משלכם. זה אפשרי רק בתוכניות בתשלום גבוהות יחסית |
+| אחסון וורדפרס **חינמי** (למשל InfinityFree ודומיו) | **אפשרי, אבל לא מומלץ** | יש כאלה שנותנים PHP ו-MySQL בחינם עם כתובת משנה. בדרך כלל יש מגבלות: האתר איטי, לפעמים נופל או מושעה, שליחת מייל (ההתראות על סיפורים חדשים) לרוב לא עובדת, ולפעמים יש פרסומות. מי שמעלה סיפורים ותמונות של יקיריו בדרך כלל לא רוצה אתר שיכול להיעלם |
+| **אחסון וורדפרס בתשלום** | **מומלץ** | עולה בערך כמה עשרות שקלים בחודש (בדקו מחיר עדכני, זה משתנה). יציב, כולל תעודת אבטחה (https), מייל, וגיבויים |
+| להריץ על המחשב שלכם | לניסוי בלבד | תוכנת **Local** (חינמית) מאפשרת להקים וורדפרס על המחשב כדי לשחק ולעצב. האתר לא יהיה זמין לאחרים |
 
-### מה יש באתר
+**ההמלצה שלי:** להתחיל בניסוי חינמי במחשב (או באחסון חינמי) כדי להתרשם, ולהעביר לאחסון בתשלום זול כשמוכנים לפתוח למשפחה. דומיין עולה בערך עשרות שקלים לשנה.
 
-- **סיפורים**: חברים ומשפחה כותבים סיפור קצר (עם תמונות). הוא ממתין לאישור, ומתפרסם רק אחרי שהמשפחה בדקה אותו. סינון לפי פרק חיים וערך, חיפוש, סיפור היום, סיפור אקראי.
-- **פרקי חיים וערכים**: טקסונומיות שמגדירים בעצמכם (שם, צבע, אייקון, תיאור, סדר; לערכים גם ציטוט).
-- **מקומות הנצחה**: ספסלים, נטיעות, פינות זיכרון. כל מקום עם תמונות, איך מגיעים, סרטון (אופציונלי), ומפה. קישור ממפות גוגל ממלא קואורדינטות אוטומטית. מבקרים יכולים לשלוח תמונה מהביקור.
-- **יצירות**: ציורים, מתקנים, כתבים, מסודרים לפי סוג יצירה.
-- **אלבום תמונות**: האלבומים מוגדרים על קבצי המדיה.
-- **הספדים והנצחה**: פוסטים רגילים של וורדפרס, מקובצים לפי קטגוריה.
-- **ציר זמן**: שורה לכל תחנה, בהגדרות האתר.
-- **באנר אזכרה**: מוצג אוטומטית שלושה שבועות לפני יום הזיכרון העברי ועד שבוע אחריו (מחושב מתאריך הפטירה).
-- **נגישות**: סרגל נגישות, ניווט במקלדת, ניגודיות, טקסט חלופי ברירת מחדל, עיצוב RTL מלא.
-- **SEO**: כותרות, תיאורים, Open Graph, JSON-LD, מפת אתר, `robots.txt`, `llms.txt`.
-- **ניהול תמונות**: מסך אחד לעריכת כיתוב, טקסט חלופי ואלבום לכל תמונה בספרייה, עם שמירה בבת אחת וניקוי מטמון LiteSpeed.
+איך בוחרים אחסון? חפשו: "אחסון וורדפרס" עם: PHP גרסה 7.4 ומעלה, תעודת SSL חינמית, התקנת וורדפרס בלחיצה, גיבויים, ותמיכה בעברית אם חשוב לכם. יש חברות ישראליות וחברות בינלאומיות, ושתיהן מתאימות. כדאי לשאול את החברים אם יש אחסון שהם מרוצים ממנו. (אני לא מאשרת כאן חברה מסוימת ולא את המחירים שלה, כי הם משתנים.)
 
-### דרישות
+---
 
-- וורדפרס 6.3 ומעלה (הערכה משתמשת ב-`strategy` ל-`wp_enqueue_script`).
-- PHP 7.4 ומעלה, עם התוספים `mbstring` ו-`calendar` (ל-`calendar`: חישוב התאריך העברי; בלעדיו באנר האזכרה פשוט לא יוצג).
-- שליחת מייל תקינה מהשרת (מומלץ תוסף SMTP), כדי לקבל התראות על סיפורים חדשים.
+### חלק ב: התקנה, צעד אחרי צעד
 
-### התקנה
+#### שלב 1: להקים וורדפרס
+בחשבון האחסון שלכם חפשו "התקנת וורדפרס" (או WordPress) ולחצו. תבחרו שם לאתר, שם משתמש וסיסמה. בסוף תקבלו כתובת כניסה לניהול, בדרך כלל `הכתובת-שלכם/wp-admin`. היכנסו.
 
-1. הורידו את הריפו (Code > Download ZIP) או שכפלו אותו.
-2. העתיקו את התיקייה `wp-content/plugins/memorial-core` אל `wp-content/plugins` באתר שלכם, ואת `wp-content/themes/memorial` אל `wp-content/themes`. אפשר גם לדחוס כל תיקייה לקובץ ZIP בנפרד (התיקייה צריכה להיות בשורש הזיפ) ולהעלות דרך לוח הניהול.
-3. בניהול: **תוספים** > הפעלת **Memorial Core**. אחר כך **מראה** > **ערכות נושא** > הפעלת **Memorial**.
-4. ב**הגדרות** > **אתר הזיכרון** לחצו **יצירת עמודים וערכי ברירת מחדל**. זה יוצר את העמודים הבסיסיים ופרקי חיים וערכים לדוגמה. לא דורס כלום.
-5. ב**הגדרות** > **קריאה**: בחרו שדף הבית מציג "הדפים האחרונים שלך" או עמוד סטטי כרצונכם (תבנית דף הבית נטענת בכל מקרה).
-6. **הגדרות** > **קישורי קבע**: בחרו "שם הפוסט" ולחצו שמירה (פעם אחת, כדי שהכתובות יעבדו).
+#### שלב 2: להכין את שני הקבצים להעלאה
+בפרויקט הזה יש שני חלקים שצריך להעלות:
+- **תוסף** בשם `memorial-core` (התיקייה `wp-content/plugins/memorial-core`).
+- **ערכת נושא** בשם `memorial` (התיקייה `wp-content/themes/memorial`).
 
-### הגדרה ראשונית
+איך מכינים? בעמוד הפרויקט בגיטהאב לחצו **Code** ← **Download ZIP**. פתחו את הקובץ שירד (חילוץ), היכנסו לתיקייה `wp-content`, ושם תמצאו `plugins/memorial-core` ו-`themes/memorial`. כעת כל אחת מהן צריכה להיות קובץ ZIP בנפרד:
+- לחצו קליק ימני על התיקייה `memorial-core` ← "שלח אל" ← "תיקייה דחוסה" (Windows), או "דחיסה" (Mac). קיבלתם `memorial-core.zip`.
+- אותו דבר עם התיקייה `memorial` ← `memorial.zip`.
 
-ב**הגדרות** > **אתר הזיכרון**:
+(חשוב: בתוך הזיפ צריכה להיות תיקייה אחת בשם הנכון, ובתוכה הקבצים. אם בתוך הזיפ רואים ישר קבצים בלי תיקייה, ההתקנה תיכשל.)
 
-- שם מלא, שם פרטי, תואר או ברכה (למשל ז״ל), שנת לידה ותאריך פטירה.
-- תמונה ראשית (דף הבית ושיתוף ברשתות). בלי תמונה מוצג איור ברירת מחדל.
-- פסקת פתיחה, תפקידים, ומשפט קצר לפוטר ולתיאור האתר.
-- ציר זמן (אופציונלי), בפורמט `מתי | כותרת | טקסט קצר | מזהה פרק`.
-- מיילים להתראות (ראו בהמשך) ומזהה Google Analytics (אופציונלי).
+#### שלב 3: להעלות ולהפעיל
+1. בניהול וורדפרס: **תוספים** ← **הוספת תוסף** ← **העלאת תוסף** ← בחרו `memorial-core.zip` ← **התקנה** ← **הפעלה**.
+2. **מראה** ← **ערכות נושא** ← **הוספת ערכה** ← **העלאת ערכה** ← `memorial.zip` ← **התקנה** ← **הפעלה**.
 
-#### פרקי חיים
+(אם העלאה דרך הניהול חסומה אצל חברת האחסון, אפשר להעלות את התיקיות ישירות דרך "מנהל קבצים" של האחסון או FTP: `memorial-core` אל `wp-content/plugins` ו-`memorial` אל `wp-content/themes`.)
 
-**סיפורים** > **פרקי חיים**. לכל פרק: שם, מזהה (slug באנגלית), תיאור, **צבע**, **אייקון** ו**סדר הצגה**. הפרקים מופיעים בדף הבית, בסינון הסיפורים ובציר הזמן. אפשר למחוק את הדוגמאות ולהגדיר פרקים משלכם.
+#### שלב 4: להקים את המבנה
+1. לחצו בתפריט הצד על **הגדרות** ← **אתר הזיכרון**.
+2. בראש העמוד לחצו **יצירת עמודים וערכי ברירת מחדל**. זה יוצר לבד את העמודים הבסיסיים (סיפורים, אודות, מקומות הנצחה, יצירות, אלבום, שליחת סיפור, הספדים, נגישות, פרטיות) ואת פרקי החיים והערכים לדוגמה. אפשר ללחוץ שוב בלי חשש, זה לא דורס כלום.
+3. **הגדרות** ← **קישורי קבע** ← בחרו **שם הפוסט** ← **שמירה**. (חשוב, אחרת הקישורים לא יעבדו.)
 
-#### ערכים
+#### שלב 5: למלא את הפרטים (הגדרות ← אתר הזיכרון)
+- **שם מלא** ו**שם פרטי**: השם הפרטי משמש בכותרות כמו "ספרו לנו על ___".
+- **תואר או ברכה**: למשל ז״ל או הי״ד.
+- **שנת לידה** ו**תאריך פטירה**: מהתאריך האתר מחשב לבד את יום הזיכרון העברי ומציג באנר אזכרה.
+- **תמונה ראשית**: תמונה אנכית או ריבועית טובה. תופיע בדף הבית וגם כשמשתפים את האתר בוואטסאפ.
+- **פסקת פתיחה** ו**משפט קצר לפוטר**: כמה שורות על האדם.
+- **ציר זמן** (לא חובה): שורה לכל תחנה, בצורה `מתי | כותרת | טקסט קצר`. למשל: `1975 | נולד בחיפה | ילדות בשכונה`.
+- **מיילים**: ראו שלב 8.
+- **שורת הפוטר**: ראו בהמשך.
+לחצו **שמירה** בתחתית.
 
-**סיפורים** > **ערכים**. אותו דבר, ובנוסף **ציטוט** ו**מי אמר**. דוגמה: ערך "הקשבה" עם ציטוט ממחברת או מדברי חבר. הערכים מוצגים בדף הבית ובעמוד "אודות".
+#### שלב 6: פרקי חיים וערכים (סיפורים ← פרקי חיים / ערכים)
+- לחצו על פרק קיים כדי לערוך: שם, **צבע**, **אייקון**, **תיאור**, **סדר הצגה**. אפשר למחוק פרקים שלא מתאימים ולהוסיף חדשים.
+- **ערכים**: אותו דבר, ובנוסף **ציטוט** (משפט שהאדם כתב או שאמרו עליו) ו**מי אמר**.
+- בשדה "מזהה" (slug) כתבו אנגלית בלי רווחים (למשל `childhood`). רק אם תרצו תמונות בעמוד פרק, ראו "אלבומים" בהמשך.
 
-#### אלבומים
-
-**מדיה** > **אלבומים** (או **ניהול תמונות** > "ניהול רשימת האלבומים"): יוצרים אלבום ונותנים לו שם, למשל "ילדות" או "משפחה". אם יוצרים אלבום שה-slug שלו זהה ל-slug של פרק חיים, התמונות שלו יופיעו גם בעמוד אותו פרק כפס תמונות.
-
-### איך מוסיפים תוכן
-
-| מה | איפה | הערות |
+#### שלב 7: להוסיף תוכן
+| מה | איפה בתפריט הצד | מה למלא |
 |---|---|---|
-| סיפור | **סיפורים** > סיפור חדש | שם הכותב, הקשר, פרק וערך, תמונה ראשית ותמונות נוספות. סיפורים שנשלחו מהאתר מופיעים כ"ממתין לבדיקה" |
-| מקום הנצחה | **מקומות הנצחה** > מקום חדש | הדביקו קישור ממפות גוגל והקואורדינטות יתמלאו בשמירה. "מיקום משוער" מציג עיגול במקום סיכה |
-| יצירה | **יצירות** > יצירה חדשה | כותרת, תמונה מייצגת, סוג יצירה (נוצר בסיווג "סוגי יצירה") |
-| הספד או כתבה | **פוסטים** > הוספה | קטגוריות מגדירות את הקבצים בעמוד "הספדים והנצחה". פוסט שתוכנו קישור בלבד יוצג ככרטיס קישור |
-| תמונות לאלבום | **מדיה** > הוספה, ואז **ניהול תמונות** | כיתוב, טקסט חלופי ואלבום לכל תמונה במקום אחד |
+| **סיפור** | סיפורים ← סיפור חדש | כותרת, הטקסט, "שם הכותב/ת", "הקשר" (למשל "אחות"), בחירת פרק וערך בצד, תמונה ראשית בצד ימין למטה. לחצו **פרסום** |
+| **מקום הנצחה** | מקומות הנצחה ← מקום חדש | שם, תיאור, תמונה. בתיבת "פרטי המקום": הדביקו **קישור ממפות גוגל** והמיקום יתמלא לבד בשמירה |
+| **יצירה** | יצירות ← יצירה חדשה | כותרת, תמונה ראשית (התמונה של היצירה), וסוג יצירה (למשל "ציורים") |
+| **הספד או כתבה** | פוסטים ← הוספה | כותרת וטקסט. הקטגוריה שתבחרו (למשל "הספדים", "בתקשורת") תהפוך לקבוצה בעמוד "הספדים והנצחה". אם רק הדבקתם קישור לכתבה, יוצג כרטיס יפה |
+| **עמוד "אודות"** | עמודים ← אודות | כתבו כאן את הסיפור המלא. זה העמוד הראשי על האדם |
+| **תמונות** | מדיה ← הוספה | העלו תמונות, ואז ראו "ניהול תמונות" |
 
-#### ניהול תמונות
+סיפורים ותמונות ששולחים אנשים דרך האתר יגיעו אליכם כ"ממתין לבדיקה", וגם יופיעו בלוח הבקרה. רק מה שתפרסמו יראו.
 
-**מדיה** > **ניהול תמונות**. טבלה עם תמונה ממוזערת, שדה כיתוב, שדה טקסט חלופי (alt) ובחירת אלבום לכל תמונה. אפשר לסנן לפי אלבום, "ללא אלבום" ו"בלי טקסט חלופי", ולחפש. לחצו **שמירת שינויים** כדי לשמור את כל השורות יחד. אחרי השמירה התוסף מפעיל `do_action('litespeed_purge_all')` אם תוסף LiteSpeed Cache פעיל, כדי שהשינויים יופיעו מיד בעמודים.
+#### שלב 8: להגדיר מיילים (כדי לקבל התראות)
+כשמישהו שולח סיפור, תמונה, תקבלו מייל עם קישור לקריאה ופרסום.
+בהגדרות ← אתר הזיכרון:
+- **מיילים שמקבלים סיפורים**: כתבו כתובת אחת או כמה מופרדות בפסיק. אם תשאירו ריק, זה יגיע למייל של מנהל האתר.
+- **מייל ליצירת קשר**: מופיע בעמודי הנגישות והפרטיות.
+- **כתובת השולח**: מומלץ כתובת באותו דומיין של האתר (למשל `noreply@שם-האתר.org.il`).
 
-### התראות במייל
+**אם לא מגיעים מיילים:** זו בעיה נפוצה באחסון (חברות חוסמות מייל, או ג'ימייל מסנן). הפתרון המקובל: להתקין תוסף חינמי בשם **WP Mail SMTP** (או דומה) ולחבר אותו לחשבון מייל. בכל מקרה סיפורים ממתינים תמיד מופיעים בלוח הבקרה, גם אם המייל לא הגיע.
 
-כשמישהו שולח סיפור, תמונה או משוב, נשלח מייל בעברית (מיושר לימין) עם קישור לעריכה ולפרסום.
+#### שלב 9: ניהול תמונות ואלבומים
+- **אלבומים**: **מדיה** ← **אלבומים**. צרו אלבום (למשל "ילדות", "משפחה", "צבא") ושם.
+- **ניהול תמונות**: **מדיה** ← **ניהול תמונות**. מסך שמציג את כל התמונות בטבלה: תמונה קטנה, **כיתוב** (מופיע מתחת לתמונה), **טקסט חלופי** (תיאור קצר של התמונה, חשוב לעיוורים ולגוגל), ו**אלבום**. ממלאים הכול, ולוחצים **שמירת שינויים** פעם אחת. אפשר לסנן "ללא אלבום" או "בלי טקסט חלופי" כדי לראות מה חסר.
+- אם תתנו לאלבום מזהה (slug) זהה למזהה של פרק (למשל שניהם `childhood`), התמונות של האלבום יופיעו גם בעמוד אותו פרק.
+- אם יש לכם תוסף LiteSpeed Cache, המטמון מתנקה לבד אחרי שמירה.
 
-- **מיילים שמקבלים סיפורים ותמונות**: ב**הגדרות** > **אתר הזיכרון**, כתובות מופרדות בפסיק. אם ריק, ההתראות יגיעו למייל מנהל האתר.
-- **מייל למשוב** ו**מייל ליצירת קשר** (מופיע בהצהרת הנגישות והפרטיות).
-- **כתובת השולח**: מומלץ כתובת בדומיין של האתר (למשל `noreply@yourdomain.org`), ותוסף SMTP, כדי שההודעות לא ייפלו לספאם.
+#### שלב 10: התפריט והעמוד הראשי
+- בלי שעשיתם כלום, בתפריט העליון יופיעו אוטומטית הקישורים לעמודים שקיימים.
+- אם רוצים תפריט משלכם: **מראה** ← **תפריטים** ← צרו תפריט, ובחרו מיקום "תפריט ראשי". אפשר גם "תפריט תחתון" שיחליף את הקישורים בפוטר.
+- עמוד הבית נבנה לבד מהתוכן שהכנסתם. כל חלק מופיע רק אם יש לו תוכן.
 
-הגנות מובנות: שדה מלכודת (honeypot), הגבלת קצב לכתובת IP, בדיקת סוג וגודל קבצים (תמונות עד 12MB), סינון ספאם בסיסי, ואישור הסכמה לפרסום. שום תוכן שנשלח לא מתפרסם לפני אישור.
+#### שלב 11: הפוטר (תחתית האתר)
+**הגדרות** ← **אתר הזיכרון** ← "שורת הפוטר התחתונה". אפשר לכתוב כל טקסט, כולל קישור. אם משאירים ריק, מוצגת ברירת מחדל: זכויות יוצרים, שם האתר וקרדיט **"חולמים תקשוב"** עם קישור. הקרדיט חלק מברירת המחדל ואפשר לערוך אותו כרצונכם, ונשמח אם יישאר. אין באתר כפתור משוב.
 
-### כתובות העמודים
+#### שלב 12: לפני שפותחים למשפחה
+- [ ] הכניסו לאתר מטלפון וממחשב ובדקו שהכול נראה טוב.
+- [ ] שלחו סיפור בדיקה דרך הטופס, וודאו שהוא מגיע ל"ממתין לבדיקה" (ומייל, אם הגדרתם).
+- [ ] עברו על עמודי **הצהרת נגישות** ו**מדיניות פרטיות** (עמודים ← ערכו) והתאימו.
+- [ ] ודאו שהכתובת מתחילה ב-`https` (מנעול). זה בדרך כלל חינמי אצל חברת האחסון.
+- [ ] תנו לאנשים לנסות לפני שמפיצים. ושמרו גיבוי (רוב האחסונים מציעים גיבוי אוטומטי).
 
-הערכה מזהה עמודים לפי ה-slug שלהם ומחילה עליהם את התבנית המתאימה:
+---
 
-| slug | תוכן |
-|---|---|
-| `stories` | כל הסיפורים, סינון וחיפוש, ציר זמן |
-| `about` | אודות (תוכן העמוד עצמו, ציר זמן וערכים) |
-| `places` | מקומות הנצחה: מפה, רשימה וטופס ביקור |
-| `creations` | יצירות |
-| `photos` | אלבום תמונות |
-| `share` | שליחת סיפור או תמונה |
-| `tributes` | הספדים והנצחה |
-| `accessibility`, `privacy` | הצהרת נגישות ומדיניות פרטיות (נוצרות עם נוסח התחלתי שכדאי לעבור עליו) |
+### שאלות נפוצות
 
-תפריט ראשי: בלי תפריט שהוגדר, הערכה מציגה אוטומטית קישורים לעמודים שקיימים. אפשר גם להגדיר תפריט משלכם במיקום "תפריט ראשי".
+**העמוד נראה ריק או בלי עיצוב.** ודאו שהפעלתם **גם** את התוסף **וגם** את ערכת הנושא, ושלחצתם "יצירת עמודים" בהגדרות.
 
-### פיתוח ושינויים
+**הקישורים (למשל "סיפורים") נותנים 404.** הגדרות ← קישורי קבע ← "שם הפוסט" ← שמירה.
 
-- כל הפונקציות, האפשרויות, ה-meta וה-handles משתמשים בקידומת אחת: `memorial_` / `memorial-`. האפשרויות נשמרות ב-`memorial_options`.
-- הטקסטים נמצאים בקבצי התבנית (`wp-content/themes/memorial`) ובעברית. הטקסטים כתובים בלשון זכר כברירת מחדל (למשל "מה שיצר"); מי שצריך לשון נקבה או ניסוח אחר, יערוך את התבניות. את ניסוח הבאנר ("לפטירתו של") מגדירים בהגדרות.
-- המזהה הפנימי של "מקומות הנצחה" נשאר `bench` (ושם ה-meta `bench_*`) מטעמי תאימות.
-- אין סיסמאות, מפתחות או מיילים בקוד. כל ההגדרות נשמרות בבסיס הנתונים של האתר שלכם.
-- בדיקות: `php -l` על כל קבצי ה-PHP.
+**ההעלאה נכשלת ("אין תיקייה" או "חבילה לא תקינה").** כנראה הזיפ נבנה לא נכון. התיקייה צריכה להיות בשורש הזיפ. ראו שלב 2.
 
-### בקשה קטנה: קרדיט
+**אני לא רואה את המפה.** צריך לפחות שני מקומות הנצחה עם מיקום (קישור ממפות גוגל) כדי שתופיע מפה כללית. מקום אחד מציג מפה בעמוד שלו.
 
-הערכה והתוסף חופשיים לשימוש ולשינוי. נשמח אם תשאירו בפוטר את הקרדיט **"חולמים תקשוב"** עם הקישור ל-**https://chepti.com**. זה מה שמאפשר להמשיך לפתח ולשתף. הקרדיט מופיע בפוטר כברירת מחדל ואפשר להשאיר אותו כמו שהוא.
+**התאריך העברי בבאנר לא נכון בדיוק.** האתר מחשב לפי התאריך הלועזי. מי שנפטר אחרי השקיעה אולי נחשב ליום העברי הבא. כך תוכלו לבדוק ולהתאים (אפשר להזיז תאריך הפטירה ביום אחד בהגדרות, או לשים הודעה מיוחדת בבאנר).
 
-### רישיון
+**אפשר לשנות את הצבעים והעיצוב?** כן, בקובץ `assets/css/main.css` בערכת הנושא, בתחילת הקובץ (`:root`). זה כבר דורש קצת עריכת קוד. עדיף לבקש מחבר שמבין, או מעוזר בינה מלאכותית.
 
-GPL-2.0-or-later (ראו `LICENSE`). פונטים, מפה ואייקונים ברישיונות פתוחים נפרדים, ראו `CREDITS.md`.
+---
+
+### האם זה עובד רק על וורדפרס? ומה עם סוכן בינה מלאכותית?
+
+**כן, כרגע זה וורדפרס בלבד.** התוסף והערכה כתובים ב-PHP ומשתמשים במנגנוני וורדפרס (סוגי תוכן, מסך ניהול, טפסים, בסיס נתונים).
+
+מי שרוצה פלטפורמה אחרת (אתר סטטי, Next.js, Supabase וכו') ויבקש מסוכן בינה מלאכותית "לתרגם" את הפרויקט, יכול לנסות, אבל זו **בנייה מחדש** ולא העתקה: צריך לבנות מחדש את מבנה הנתונים (סיפורים, מקומות, יצירות), את מסך הניהול, את הטפסים (כולל אישור לפני פרסום, הגנה מספאם ושליחת מייל) ואת ניהול התמונות. את העיצוב (`main.css`, `main.js`), הפונטים, המפה והאיורים אפשר לקחת כמעט כמו שהם. למי שבונה כך, מה שכדאי להעביר לסוכן: את הקבצים של התוסף כמפרט התנהגות, ואת התיקייה `themes/memorial/assets` כמו שהיא.
+
+---
+
+### למפתחים: מבנה הפרויקט
+
+```
+wp-content/
+  plugins/memorial-core/      # לוגיקה, סוגי תוכן, טפסים, SEO, ניהול
+    memorial-core.php
+    inc/helpers.php           # הגדרות, תאריך עברי, פרקים וערכים, ציר זמן
+    inc/post-types.php        # story, bench, creation, visit + chapter, value, medium, album
+    inc/terms.php             # צבע, אייקון, סדר, ציטוט לפרקים ולערכים
+    inc/meta-boxes.php        # שדות מותאמים (בלי ACF), פענוח קישור מפות גוגל
+    inc/settings.php          # מסך "אתר הזיכרון"
+    inc/setup.php             # יצירת עמודים וערכי ברירת מחדל
+    inc/forms.php             # טפסי סיפור וביקור (honeypot, הגבלת קצב, בדיקת קבצים)
+    inc/seo.php               # כותרות, Open Graph, JSON-LD, robots, llms.txt
+    inc/routing.php           # /random-story/ והרחבת חיפוש
+    inc/media-manager.php     # מסך ניהול תמונות
+    inc/admin.php             # וידג'ט "ממתינים", עורך קלאסי
+  themes/memorial/            # תצוגה
+    templates/page-*.php      # תבניות לפי slug של העמוד
+    assets/                   # css, js, פונטים, Leaflet
+```
+
+- קידומת אחת בכל מקום: `memorial_` / `memorial-`. האפשרויות ב-`memorial_options`.
+- המזהה הפנימי של "מקומות הנצחה" נשאר `bench` (שדות `bench_*`).
+- הטקסטים בתבניות בעברית ובלשון זכר כברירת מחדל. את ניסוח הבאנר מגדירים בהגדרות.
+- אין סיסמאות, מפתחות או מיילים בקוד. הכול בבסיס הנתונים של האתר.
+- בדיקת תחביר: `php -l` על כל קובצי ה-PHP.
+- דרישות: וורדפרס 6.3 ומעלה, PHP 7.4 ומעלה עם `mbstring` ו-`calendar`.
+
+### רישיון וקרדיט
+
+GPL-2.0-or-later (ראו `LICENSE`). פונטים, מפה ואייקונים ברישיונות פתוחים נפרדים, ראו `CREDITS.md`. נשמח שקרדיט **"חולמים תקשוב"** (https://chepti.com) יישאר בפוטר, אך זו החלטה שלכם.
 
 ---
 
 ## English
 
-**Memorial** is an open-source (GPL-2.0-or-later) WordPress theme and plugin for building a Hebrew, right-to-left family memorial website without a page builder. It started as the memorial site of one family and was cleaned up and generalised so other families can build the same thing without a developer.
+**Memorial** is a free, open-source (GPL-2.0-or-later) WordPress theme + plugin for a Hebrew, right-to-left family memorial website. It was extracted from one family's site and generalised so others can build one without coding.
 
-Two parts that work together:
+> **It is WordPress-only.** It needs PHP and MySQL. It will not run on static hosts or app backends (GitHub Pages, Netlify, Vercel, Cloudflare Pages, Supabase, Firebase) or on site builders (Wix, Squarespace).
 
-| Part | Folder | What it does |
+### What you get
+
+Stories (submitted via a form and published only after approval), configurable life chapters and values (colour and icon), memorial places on a map, creations, photo albums, tributes, a timeline, an automatic yahrzeit banner, an accessibility toolbar, SEO/JSON-LD/`llms.txt`, and a bulk image manager.
+
+### Hosting: do you have to pay?
+
+| Option | Works? | Notes |
 |---|---|---|
-| **Memorial Core** plugin | `wp-content/plugins/memorial-core` | Content types (stories, memorial places, creations), life chapters and values configured from the admin, submission forms with moderation, image manager, SEO and JSON-LD, `llms.txt`, sitemap, timeline |
-| **Memorial** theme | `wp-content/themes/memorial` | Front end: home page, content pages, Leaflet map, lightbox galleries, accessibility toolbar, local fonts, no third-party dependencies except map tiles |
+| Supabase, Firebase, Netlify, Vercel, GitHub Pages | No | No PHP/MySQL |
+| WordPress.com free plan | No | Cannot upload custom themes/plugins (only on higher paid plans) |
+| Free WordPress hosts (e.g. InfinityFree) | Possible, not recommended | Slow, suspensions, ads, outgoing mail usually blocked (no notification emails) |
+| Cheap paid WordPress hosting | **Recommended** | A few dollars a month (check current prices). HTTPS, mail, backups |
+| WordPress on your own computer (the free "Local" app) | Trial only | Not visible to others |
 
-### Features
+A domain is optional but recommended (a small yearly fee). Suggested path: try it for free on your computer, then move to cheap paid hosting when you are ready to invite the family.
 
-- **Stories**: friends and family submit short stories (with photos). They wait for approval and are published only after the family reviews them. Filter by chapter and value, search, story of the day, random story.
-- **Chapters and values**: taxonomies you define yourself (name, colour, icon, description, order; values also take a quote).
-- **Memorial places**: benches, trees, memorial corners. Photos, directions, optional video and a map. Pasting a Google Maps link fills the coordinates. Visitors can send a photo from their visit.
-- **Creations** grouped by type, **photo albums** (defined on media files), **tributes** (regular posts grouped by category), and a configurable **timeline**.
-- **Yahrzeit banner**: shown automatically from three weeks before the Hebrew-calendar anniversary until a week after (derived from the date of passing).
-- **Accessibility**: toolbar, keyboard navigation, contrast, default alt text, full RTL.
-- **SEO**: titles, descriptions, Open Graph, JSON-LD, sitemap, `robots.txt`, `llms.txt`.
-- **Image manager**: one screen to edit caption, alt text and album for every library image, saved in one go, purging the LiteSpeed cache afterwards.
+### Install (step by step)
 
-### Requirements
+1. Create a WordPress site at your host (one-click install) and log in to `/wp-admin`.
+2. Download this repo (Code > Download ZIP), unzip it, and zip **each** folder separately: `wp-content/plugins/memorial-core` and `wp-content/themes/memorial` (the folder must be the zip's root).
+3. **Plugins > Add New > Upload** `memorial-core.zip`, activate. **Appearance > Themes > Add New > Upload** `memorial.zip`, activate. (Or upload the folders via the host's file manager/FTP.)
+4. **Settings > Memorial site (אתר הזיכרון)**: press **Create pages and default values**. Then **Settings > Permalinks > Post name > Save**.
+5. Fill in the settings: names, honorific, birth year, date of passing (the Hebrew date and banner are computed from it), hero image, intro text, optional timeline (`when | title | text` per line), emails, and the footer line.
+6. Edit chapters/values under **Stories**. Add stories, memorial places (paste a Google Maps link to fill coordinates), creations, tributes (regular posts, grouped by category), and write the **About** page.
+7. Photos: upload to Media, create albums (**Media > Albums**), then use **Media > Image manager** to set caption, alt text and album for many images at once, with one Save (it also purges the LiteSpeed cache if present).
+8. Emails: set the notification recipients (default: site admin). If mail doesn't arrive, install an SMTP plugin such as WP Mail SMTP. Pending stories always appear on the dashboard anyway.
+9. Footer: **Settings > Memorial site > Footer line** is free text (links allowed). Empty = default line with the "חולמים תקשוב" credit (https://chepti.com), which you can edit or remove; we'd appreciate it staying. There is no feedback button.
 
-- WordPress 6.3+ (script `strategy` support).
-- PHP 7.4+ with `mbstring` and `calendar` (the latter computes the Hebrew date; without it the yahrzeit banner is simply hidden).
-- Working outgoing mail (an SMTP plugin is recommended) to receive new-submission notifications.
+Before launch: test on a phone, send a test story, review the accessibility and privacy pages, make sure the site uses https, keep backups.
 
-### Installation
+### Other platforms / AI agents
 
-1. Download this repo (Code > Download ZIP) or clone it.
-2. Copy `wp-content/plugins/memorial-core` into your site's `wp-content/plugins`, and `wp-content/themes/memorial` into `wp-content/themes`. You can also zip each folder separately (the folder must be at the root of the zip) and upload through the admin.
-3. In the admin: **Plugins** > activate **Memorial Core**; then **Appearance** > **Themes** > activate **Memorial**.
-4. Go to **Settings** > **אתר הזיכרון** (Memorial site) and press **Create pages and default values** (creates the basic pages plus sample chapters and values; never overwrites anything).
-5. **Settings** > **Permalinks**: choose "Post name" and save once.
+Porting to another stack is a **rebuild**, not a copy: you must recreate the data model, admin screens, moderated forms (spam protection, email) and the image manager. The CSS/JS (`themes/memorial/assets`), fonts, map and illustrations can be reused almost as-is; the plugin's PHP is a good behavioural spec for an agent.
 
-### Setup
+### For developers
 
-Under **Settings** > **אתר הזיכרון**: full name, first name, honorific, birth year, date of passing, hero image, intro text, roles, a short footer sentence, optional timeline (`when | title | short text | chapter slug` per line), notification emails and an optional Google Analytics ID.
+One prefix: `memorial_` / `memorial-`; options in `memorial_options`; internal post type for places stays `bench`; template strings are Hebrew (masculine by default); no secrets in code. Requires WordPress 6.3+, PHP 7.4+ with `mbstring` and `calendar`. See the tree above.
 
-- **Chapters**: *Stories > Life chapters*. Name, slug, description, colour, icon, order.
-- **Values**: *Stories > Values*. Same, plus a quote and its source.
-- **Albums**: *Media > Albums*. Give an album the same slug as a chapter to show its photos as a strip on that chapter's page.
+### License and credit
 
-### Adding content
-
-Stories, memorial places and creations each have their own menu. Tributes are regular posts (categories become sections on the tributes page). Photos go to the media library; then use **Media > Image manager** to set captions, alt text and albums in bulk. The table supports filtering by album, "no album" and "missing alt text", and saving everything with one button.
-
-### Email notifications
-
-Submissions send a Hebrew, right-aligned HTML email with an edit/publish link. Configure recipients (comma separated; defaults to the site admin email), the feedback and contact addresses, and the sender address (use an address on your own domain and an SMTP plugin to avoid spam folders). Built-in protections: honeypot, per-IP rate limiting, file type and size checks (12MB images), basic spam filtering, and a publishing consent checkbox. Nothing submitted is published without approval.
-
-### Page slugs
-
-The theme applies templates by page slug: `stories`, `about`, `places`, `creations`, `photos`, `share`, `tributes` (plus `accessibility` and `privacy`, created with starter text that you should review). Without a custom menu, the header and footer link automatically to the pages that exist.
-
-### Notes for developers
-
-- One prefix everywhere: `memorial_` / `memorial-` (functions, options, meta, admin-post actions, script handles). Options live in `memorial_options`.
-- Template strings are Hebrew, in the theme files, and default to masculine grammatical forms; edit the templates for other phrasing. The banner wording is a setting.
-- The internal post type for memorial places stays `bench` (meta keys `bench_*`) for compatibility.
-- No passwords, keys or personal emails are in the code; all settings are stored in your site's database.
-- Check syntax with `php -l` on all PHP files.
-
-### A small request: credit
-
-Free to use and modify. Please keep the **"חולמים תקשוב"** credit in the footer, linking to **https://chepti.com**. It ships that way by default.
-
-### License
-
-GPL-2.0-or-later (see `LICENSE`). Fonts, map library and icons have their own open licenses, see `CREDITS.md`.
+GPL-2.0-or-later (`LICENSE`); third-party components in `CREDITS.md`. Please consider keeping the "חולמים תקשוב" credit (https://chepti.com) in the footer; it is your choice.

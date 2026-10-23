@@ -1,6 +1,6 @@
 <?php
 /**
- * טפסים: שליחת סיפור, תמונת ביקור במקום הנצחה, משוב על האתר.
+ * טפסים: שליחת סיפור ותמונת ביקור במקום הנצחה.
  * ללא פלאגינים; מוגן ב-honeypot, הגבלת קצב, בדיקת קבצים ואימות תוכן.
  * סיפורים ותמונות נשמרים כ"ממתין לבדיקה" ומתפרסמים רק אחרי אישור.
  */
@@ -12,8 +12,6 @@ add_action('admin_post_nopriv_memorial_story', 'memorial_handle_story');
 add_action('admin_post_memorial_story', 'memorial_handle_story');
 add_action('admin_post_nopriv_memorial_visit', 'memorial_handle_visit');
 add_action('admin_post_memorial_visit', 'memorial_handle_visit');
-add_action('admin_post_nopriv_memorial_feedback', 'memorial_handle_feedback');
-add_action('admin_post_memorial_feedback', 'memorial_handle_feedback');
 
 function memorial_form_respond($ok, $message, $kind)
 {
@@ -243,23 +241,4 @@ function memorial_handle_visit()
     memorial_mail('ביקור במקום הנצחה: ' . $label, $body, $email);
 
     memorial_form_respond(true, 'תודה! התמונה התקבלה והמשפחה תשמח לראות אותה.', 'visit');
-}
-
-function memorial_handle_feedback()
-{
-    memorial_common_guard('feedback', 4);
-
-    $msg = sanitize_textarea_field(wp_unslash($_POST['message'] ?? ''));
-    $email = sanitize_email(wp_unslash($_POST['email'] ?? ''));
-    $page = esc_url_raw(wp_unslash($_POST['page'] ?? ''));
-    if (mb_strlen($msg) < 3) {
-        memorial_form_respond(false, 'נא לכתוב כמה מילים.', 'feedback');
-    }
-    if (memorial_looks_spammy($msg)) {
-        memorial_form_respond(false, 'לא הצלחנו לקבל את ההודעה. נא להסיר קישורים מהטקסט ולנסות שוב.', 'feedback');
-    }
-    $ua = sanitize_text_field(substr($_SERVER['HTTP_USER_AGENT'] ?? '', 0, 200));
-    $body = "משוב חדש על האתר\n\nעמוד: $page\nמייל לחזרה: " . ($email ?: '—') . "\nדפדפן: $ua\n\n----\n$msg\n----";
-    memorial_mail('משוב על אתר הזיכרון של ' . memorial_name(), $body, $email, [memorial_opt('feedback_email')]);
-    memorial_form_respond(true, 'תודה על המשוב!', 'feedback');
 }

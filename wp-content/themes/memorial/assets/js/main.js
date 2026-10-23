@@ -191,14 +191,6 @@
     });
   });
 
-  /* ---------- דיאלוג משוב ---------- */
-  var fb = $('#feedback-dialog');
-  if (fb) {
-    $$('[data-feedback-open]').forEach(function (b) { b.addEventListener('click', function () { if (fb.showModal) { fb.showModal(); } else { fb.setAttribute('open', ''); } var t = $('textarea', fb); if (t) { t.focus(); } }); });
-    $$('[data-dialog-close]', fb).forEach(function (b) { b.addEventListener('click', function () { fb.close(); }); });
-    fb.addEventListener('click', function (e) { if (e.target === fb) { fb.close(); } });
-  }
-
   /* ---------- סרגל נגישות ---------- */
   var saved = {};
   try { saved = JSON.parse(store.get('memorial_a11y') || '{}'); } catch (e) { saved = {}; }

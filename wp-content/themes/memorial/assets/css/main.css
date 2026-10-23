@@ -440,13 +440,6 @@ a.chip:hover, button.chip:hover { background: color-mix(in srgb, var(--c) 24%, #
 @media (max-width: 900px) { .share-page { grid-template-columns: 1fr; } }
 .ticks li { position: relative; padding-inline-start: 26px; margin-bottom: .5em; color: var(--ink-2); }
 .ticks li::before { content: ''; position: absolute; inset-inline-start: 0; top: .6em; width: 10px; height: 10px; border-radius: 50%; background: var(--sun-bright); }
-.dlg { border: 0; border-radius: 28px; padding: 0; width: min(560px, calc(100vw - 28px)); background: var(--paper); color: var(--ink); box-shadow: 0 40px 80px -20px rgba(0, 0, 0, .55); }
-.dlg::backdrop { background: rgba(14, 20, 38, .6); backdrop-filter: blur(3px); }
-.dlg__form { padding: 26px; }
-.dlg__head { display: flex; justify-content: space-between; align-items: center; }
-.dlg__head h2 { margin: 0; font-size: 1.5rem; }
-.dlg__close { border: 2px solid var(--ink); background: #fff; width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; }
-.dlg__lead { margin: 0; color: var(--ink-2); }
 
 /* ==========================================================================
    מפה

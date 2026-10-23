@@ -15,7 +15,7 @@ function memorial_option_keys()
     return [
         'person_name', 'short_name', 'honorific', 'birth_year', 'death_date', 'passing_phrase',
         'hero_lede', 'hero_roles', 'footer_about', 'hero_image', 'header_image', 'timeline',
-        'notify_emails', 'feedback_email', 'contact_email', 'from_email', 'yahrzeit_note', 'ga_id',
+        'notify_emails', 'contact_email', 'from_email', 'yahrzeit_note', 'ga_id', 'footer_credit',
     ];
 }
 
@@ -36,7 +36,6 @@ function memorial_opt($key, $default = '')
         case 'passing_phrase':
             return 'לפטירתו של';
         case 'notify_emails':
-        case 'feedback_email':
         case 'contact_email':
             return get_option('admin_email');
         case 'from_email':
@@ -60,6 +59,27 @@ function memorial_title_name()
 {
     $h = trim((string) memorial_opt('honorific'));
     return memorial_name() . ($h ? ' ' . $h : '');
+}
+
+/** תגיות HTML מותרות בשורת הפוטר */
+function memorial_footer_allowed_html()
+{
+    return ['a' => ['href' => true, 'target' => true, 'rel' => true], 'strong' => [], 'em' => [], 'br' => [], 'span' => []];
+}
+
+/** שורת הפוטר: מה שהוגדר בהגדרות, או ברירת מחדל עם קרדיט */
+function memorial_default_footer_credit()
+{
+    return '© ' . wp_date('Y') . ' · אתר הזיכרון של ' . esc_html(memorial_name()) . ' · <a href="https://chepti.com" target="_blank" rel="noopener">חולמים תקשוב</a>';
+}
+
+function memorial_footer_credit()
+{
+    $opts = get_option('memorial_options', []);
+    if (isset($opts['footer_credit']) && trim((string) $opts['footer_credit']) !== '') {
+        return wp_kses($opts['footer_credit'], memorial_footer_allowed_html());
+    }
+    return memorial_default_footer_credit();
 }
 
 /** כתובות מייל לקבלת סיפורים/תמונות חדשות */

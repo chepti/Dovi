@@ -27,7 +27,7 @@ function memorial_sanitize_options($in)
     $out['hero_image'] = (string) absint($in['hero_image'] ?? 0) ?: '';
     $out['header_image'] = (string) absint($in['header_image'] ?? 0) ?: '';
     $out['notify_emails'] = implode(',', array_filter(array_map('sanitize_email', array_map('trim', explode(',', (string) ($in['notify_emails'] ?? ''))))));
-    $out['feedback_email'] = sanitize_email($in['feedback_email'] ?? '');
+    $out['footer_credit'] = wp_kses((string) ($in['footer_credit'] ?? ''), memorial_footer_allowed_html());
     $out['contact_email'] = sanitize_email($in['contact_email'] ?? '');
     $out['from_email'] = sanitize_email($in['from_email'] ?? '');
     $ga = strtoupper(trim((string) ($in['ga_id'] ?? '')));
@@ -159,13 +159,18 @@ function memorial_settings_page()
                 <tr><th><label for="ne">מיילים שמקבלים סיפורים ותמונות חדשים</label></th>
                     <td><input id="ne" class="large-text" name="memorial_options[notify_emails]" value="<?php echo $g('notify_emails'); ?>" placeholder="mom@example.com,sister@example.com">
                         <p class="description">כתובות מופרדות בפסיק. אם ריק, ההתראות יישלחו למייל מנהל האתר (<?php echo esc_html(get_option('admin_email')); ?>).</p></td></tr>
-                <tr><th><label for="fe">מייל למשוב על האתר</label></th>
-                    <td><input id="fe" class="regular-text" name="memorial_options[feedback_email]" value="<?php echo $g('feedback_email'); ?>"></td></tr>
                 <tr><th><label for="ce">מייל ליצירת קשר (הצהרת נגישות)</label></th>
                     <td><input id="ce" class="regular-text" name="memorial_options[contact_email]" value="<?php echo $g('contact_email'); ?>"></td></tr>
                 <tr><th><label for="fm">כתובת השולח של ההתראות</label></th>
                     <td><input id="fm" class="regular-text" dir="ltr" name="memorial_options[from_email]" value="<?php echo $g('from_email'); ?>" placeholder="noreply@yourdomain.org">
                         <p class="description">מומלץ כתובת בדומיין של האתר, כדי שההתראות לא ייפלו לספאם. אם אפשר, הגדירו גם SMTP בעזרת תוסף דוא״ל.</p></td></tr>
+            </table>
+
+            <h2>פוטר</h2>
+            <table class="form-table" role="presentation">
+                <tr><th><label for="fc">שורת הפוטר התחתונה</label></th>
+                    <td><textarea id="fc" class="large-text code" rows="3" name="memorial_options[footer_credit]" placeholder="<?php echo esc_attr(strip_tags(memorial_default_footer_credit())); ?>"><?php echo esc_textarea($o['footer_credit'] ?? ''); ?></textarea>
+                        <p class="description">הטקסט שמופיע בתחתית כל עמוד. מותר: קישור (<code>&lt;a href="..."&gt;</code>), <code>&lt;strong&gt;</code>, <code>&lt;em&gt;</code>. ריק = ברירת המחדל, שכוללת קרדיט "חולמים תקשוב" עם קישור ל-chepti.com (נשמח אם יישאר, אבל זו החלטה שלכם). את העמודות והקישורים שמעליו אפשר להחליף בתפריט "תפריט תחתון" במראה &gt; תפריטים.</p></td></tr>
             </table>
 
             <h2>מדידה</h2>
